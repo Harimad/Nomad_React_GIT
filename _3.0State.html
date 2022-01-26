@@ -11,11 +11,18 @@
 
 		function App() {
 			const [counter, modifier] = React.useState(0);
-			console.log(counter, modifier);
+
+			const onClick = () => {
+				modifier(counter + 1)
+			};
+			//React.useState 함수는 데이터(0)를 제공할 변수(counter)를 제공하고
+			//그 데이터 값을 바꿀 함수modifier를 제공한다.
+			//modifier 함수를 이용해서 데이터 값을 바꾸면 아래 return안에 있는 컴포넌트도 동시에 리랜더링(Update) 된다.
+
 			return (
 				<div>
 					<h3>Total clicks: {counter}</h3>
-					<button>Click me</button>
+					<button onClick={onClick}>Click me</button>
 				</div>
 			);
 		};
