@@ -5,56 +5,38 @@
 	<div id="root"></div>
 	<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 	<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-	<!-- babel 가져옴 + script:type -->
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-	<!-- type을 바꿔줘야함 -->
 	<script type="text/babel">
 		const root = document.querySelector('#root');
 
 		//JSX
-		const Title = (
-			<h3 id="title" onMouseEnter={() => console.log('mouse enter')}>
-				Hello I'm a title
-			</h3>
+		function Title() {
+			return (
+				<h3 id="title" onMouseEnter={() => console.log('mouse enter')}>
+					Hello I'm a title
+				</h3>)
+		};
+
+		const Button = () => {
+			return (
+				<button sytle={{ background: 'tomato', }} onClick={() => console.log(`I'm clicked!`)}>
+					Click me
+				</button>)
+		};
+		//구식
+		// const container = React.createElement('div', null, [Title, Button]);
+		//신식: JSX
+		const Container = (
+			<div>
+				<button>Hello</button>
+				<Title />
+				<Button />
+			</div>
 		);
-		//이대로 쓰면 오류발생함
-		//Uncaught SyntaxError: Unexpected token '<'
-		//브라우저가 JSX를 이해할 수 있게 뭔가 설치해줘야함
+		//Title말고 소문자 title을 해버리면 HTML태그로 인식함.
+		//직접 만든 요소는 전부 대문자로 시작해야 된다.
 
-		//Old Way
-		// const title = React.createElement(
-		// 	'title',
-		// 	{
-		// 		id: 'title',
-		// 		onMouseEnter: () => console.log('mouse enter'),
-		// 	},
-		// 	`hello I'm a title`);
-
-		const Button = (
-			<button
-				sytle={
-					{ background: 'tomato', }
-				}
-				onClick={() => console.log(`I'm clicked!`)}
-			>
-				Click me
-			</button>
-		);
-		//Old Way
-		// const btn = React.createElement(
-		// 	'button',
-		// 	{
-		// 		onClick: () => console.log(`I'm clicked`),
-		// 		style: {
-		// 			background: 'tomato',
-		// 			fontSize: '30px'
-		// 		}
-		// 	},
-		// 	'Click me');
-		const container = React.createElement('div', null, [Title, Button]);
-
-		ReactDOM.render(container, root);
-
+		ReactDOM.render(Container, root);
 	</script>
 </body>
 
