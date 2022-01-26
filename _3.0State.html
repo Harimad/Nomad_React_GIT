@@ -10,11 +10,11 @@
 		const root = document.querySelector('#root');
 
 		function App() {
-			const [counter, modifier] = React.useState(0);
+			const [counter, modifier] = React.useState(100);
 
 			const onClick = () => {
 				//modifier(5);
-				modifier((current) => current + 1)
+				modifier(current => current + 1);
 			};
 			return (
 				<div>
