@@ -9,27 +9,17 @@
 	<script type="text/babel">
 		const root = document.querySelector('#root');
 
-		let counter = 0;
-
-		function countUp() {
-			counter = counter + 1;
-			reRender(); //위에 값이 바뀌고 여기서 바뀐 부분만 다시 랜더링 해주세요의 뜻
-		}
-
-
-		const Container = () => (
-			<div>
-				<h3>Total clicks: {counter}</h3>
-				<button onClick={countUp}>Click me</button>
-			</div>
-		);
-
-		function reRender() { // 랜더링을 담은 함수
-			ReactDOM.render(<Container />, root);
-		}
-
-		reRender(); //처음 랜더링 시켜줌.
-
+		function App() {
+			const [counter, modifier] = React.useState(0);
+			console.log(counter, modifier);
+			return (
+				<div>
+					<h3>Total clicks: {counter}</h3>
+					<button>Click me</button>
+				</div>
+			);
+		};
+		ReactDOM.render(<App />, root);
 	</script>
 </body>
 
