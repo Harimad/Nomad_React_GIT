@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	<div id="root"></div>
+	<!-- interactive UI -->
+	<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+	<!-- react-dom puts React elements into HTML -->
+	<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+	<script>
+		const root = document.querySelector('#root');
+
+		const span = React.createElement(
+			'span',
+			{ id: 'sexy-span', style: { color: 'red' } },
+			`hello I'm a span`);
+		ReactDOM.render(span, root); //Show it to the Users
+
+		//React 작동순서
+		//JS부터 시작함 -> HTML에 만들어진 태그를 전해줌
+
+		//ReactJS는 유저에게 보여줄 내용을 Control 할 수 있다 - 핵심!
+
+		//구식 - HTML만들고, 찾아서 가져오고, 업데이트 하는 방식을 쓰지 않음
+		//React방식 - JS로 element생성 -> HTML로 번역 (Powerful)
+	</script>
+</body>
+
+</html>
