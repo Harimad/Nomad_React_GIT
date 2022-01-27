@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	<div id="root"></div>
+	<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<script type="text/babel">
+		function Btn({ text, big }) {
+			console.log(text, big);
+			return (
+				<button
+					style={
+						{
+							background: 'tomato',
+							color: 'white',
+							padding: '10px 20px',
+							border: 9,
+							borderRadius: 10,
+							fontSize: big ? 18 : 8,
+						}
+					}
+				>
+					{text}
+				</button>
+			);
+		}
+
+		function App() {
+			return (
+				<div>
+					<Btn text="First btn props" big={true} />
+					<Btn text="Second btn props" big={false} />
+				</div>
+			); //<Btn text="~~"/> 는 실제로 Btn({text: "Save Changes"}) 와 같다
+		}
+		const root = document.querySelector('#root');
+		ReactDOM.render(<App />, root);
+	</script>
+</body>
+
+</html>
