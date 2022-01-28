@@ -1,21 +1,28 @@
-import Button from './Button';
-import styles from './App.module.css';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
-function App() {
-  const [counter, setCounter] = useState(0);
-  const onClick = () => setCounter((prev) => prev + 1);
-
-  console.log('I run all the time');
+function Hello() {
+  // useEffect(function () {
+  //   console.log('안녕');
+  //   return function () {
+  //     console.log('잘가');
+  //   };
+  // });
 
   useEffect(() => {
-    console.log('I run only once.');
+    console.log('안녕:)');
+    return () => console.log('잘가:(');
   }, []);
 
+  return <h1>Hello</h1>;
+}
+
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing(prev => !prev);
   return (
     <div>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me</button>
+      {showing ? <Hello></Hello> : null}
+      <button onClick={onClick}>{showing ? 'Hide' : 'Show'}</button>
     </div>
   );
 }
