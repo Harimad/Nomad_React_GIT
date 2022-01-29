@@ -1,59 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [dollar, setDollar] = useState(0);
-
-  useEffect(() => {
-    fetch('https://api.coinpaprika.com/v1/tickers')
-      .then(response => response.json())
-      .then(json => {
-        setCoins(json);
-        setLoading(false);
-      });
-  }, []);
-
-  const onChange = event => {
-    setDollar(event.target.value);
+  const [movies, setMovies] = useState([]); //데이터 담을 곳
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+      )
+    ).json();
+    setMovies(json.data.movies);
+    setLoading(false);
   };
+
+  //한 번만 데이터 받아옴
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
     <div>
-      <h1>The Coins {loading ? '' : `(${coins.length})`}</h1>
-      <p>Coin Price</p>
       {loading ? (
-        <strong>Loding...</strong>
+        <h1>Loading...</h1>
       ) : (
-        <select>
-          {coins.map(coin => (
-            <option>
-              {coin.name}({coin.symbol}): ${coin.quotes.USD.price} {coin.symbol}
-            </option>
+        <div>
+          {movies.map(movie => (
+            <div key={movie.id}>
+              <img src={movie.medium_cover_image} />
+              <h2>{movie.title}</h2>
+              <p>{movie.summary}</p>
+              <ul>
+                {movie.genres.map(g => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </select>
-      )}
-
-      <br></br>
-      <br></br>
-      <hr></hr>
-
-      <p>Coins You can buy</p>
-      <span>Your dollars: </span>
-      <input value={dollar} onChange={onChange} type="number"></input>
-      <span>$ </span>
-
-      {loading ? (
-        <strong>Loading...</strong>
-      ) : (
-        <select>
-          {coins.map(coin => (
-            <option>
-              {coin.name} ({coin.symbol}): {dollar / coin.quotes.USD.price}{' '}
-              {coin.symbol}
-            </option>
-          ))}
-        </select>
+        </div>
       )}
     </div>
   );
