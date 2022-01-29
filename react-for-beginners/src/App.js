@@ -1,28 +1,34 @@
-import { useState, useEffect } from 'react';
-
-function Hello() {
-  // useEffect(function () {
-  //   console.log('안녕');
-  //   return function () {
-  //     console.log('잘가');
-  //   };
-  // });
-
-  useEffect(() => {
-    console.log('안녕:)');
-    return () => console.log('잘가:(');
-  }, []);
-
-  return <h1>Hello</h1>;
-}
+import { useState } from 'react';
 
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing(prev => !prev);
+  const [toDo, setToDo] = useState('');
+  const [toDos, setToDos] = useState([]);
+  const onChange = event => setToDo(event.target.value);
+  const onSubmit = event => {
+    event.preventDefault();
+    if (toDo === '') {
+      return;
+    }
+    setToDos(currentArray => [toDo, ...currentArray]);
+    console.log(toDos);
+    // setToDos(currentArray => {
+    //   const newArray = [toDo, ...currentArray];
+    //   console.log(newArray);
+    //   return newArray;
+    // });
+    setToDo('');
+  };
   return (
     <div>
-      {showing ? <Hello></Hello> : null}
-      <button onClick={onClick}>{showing ? 'Hide' : 'Show'}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          type="text"
+          placeholder="Write your TODO"
+        ></input>
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
