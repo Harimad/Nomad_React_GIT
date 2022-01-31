@@ -8,7 +8,7 @@ function Movie({ id, coverImg, title, summary, genres }) {
       <h2>
         <Link to={`/movie/${id}`}>{title}</Link>
       </h2>
-      <p>{summary.length > 235 ? `${summary.slice(0, 235)}` : summary}</p>
+      <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
       <ul>{genres && genres.map(g => <li key={g}>{g}</li>)}</ul>
       {/* genres가 있는지 먼저 체크해주고 genres를 map으로 그려줘야지 에러가 안뜸 */}
     </div>
